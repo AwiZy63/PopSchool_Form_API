@@ -72,6 +72,55 @@ app.post('/', async (req, res) => {
     }
 })
 
+app.post('/contact', async (req, res) => {
+    try {
+        const { firstName, lastName, email, phone, message } = req.body;
+        console.log("Contact : ", firstName, lastName, email, phone, message);
+        if (!req.body || !firstName || !lastName || !email || !phone || !message) {
+            return res.status(400).json({
+                error: true,
+                message: "Requête invalide."
+            });
+        }
+
+        if (!/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm.test(email)) {
+            return res.status(400).json({
+                error: true,
+                message: "L'adresse email est incorrecte."
+            });
+        }
+
+        const messageData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            message: message
+        }
+
+        // if (Object.values(userData).length !== 4) {
+        //     return res.status(500).json({
+        //         error: true,
+        //         message: "Une erreur est survenue, veuillez réessayer plus tard."
+        //     });
+        // }
+
+        // JWT Token
+        // const token = await generateJwt(userData);
+
+        return res.status(200).json({
+            error: false,
+            message: "Votre message à bien été envoyé.",
+            content: messageData,
+        });
+    } catch (error) {
+        return {
+            error: true,
+            message: error
+        }
+    }
+})
+
 // app.post('/', async (req, res) => {
 //     try {
 //         const { firstName, lastName, email, password, confirmPassword } = req.body;
