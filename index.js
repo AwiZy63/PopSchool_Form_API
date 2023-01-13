@@ -56,13 +56,12 @@ app.post('/', async (req, res) => {
         // }
 
         // JWT Token
-        const token = await generateJwt(userData);
+        // const token = await generateJwt(userData);
 
         return res.status(200).json({
             error: false,
             message: "Votre compte a bien été créé.",
             userData: userData,
-            userToken: token,
             encryptedPassword: encryptedPassword
         });
     } catch (error) {
