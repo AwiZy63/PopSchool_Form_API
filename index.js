@@ -48,12 +48,12 @@ app.post('/', async (req, res) => {
             phone: phone
         }
 
-        if (Object.values(userData).length !== 4) {
-            return res.status(500).json({
-                error: true,
-                message: "Une erreur est survenue, veuillez réessayer plus tard."
-            });
-        }
+        // if (Object.values(userData).length !== 4) {
+        //     return res.status(500).json({
+        //         error: true,
+        //         message: "Une erreur est survenue, veuillez réessayer plus tard."
+        //     });
+        // }
 
         // JWT Token
         const token = await generateJwt(userData);
